@@ -7,7 +7,7 @@ const themeInit = `(function(){try{var t=localStorage.getItem("theme");var dark=
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body>
         <script dangerouslySetInnerHTML={{ __html: themeInit }} />
         <Navbar />

@@ -1,36 +1,98 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Task Tracker
+
+## About
+A functional Task Tracker application built with Next.js and React. Users can create, manage, filter, and persist tasks across browser sessions using localStorage.
+
+## Features
+- Add tasks with title, description, priority, status, and due date
+- Edit tasks with a pre-filled form (title, description, priority, status, due date)
+- Mark tasks as completed or pending
+- Delete tasks with a confirmation dialog
+- Filter tasks by All / Pending / Completed (with live counts)
+- Search tasks by title or description
+- Sort tasks by newest, oldest, due date, or priority
+- Task statistics — Total, Completed, Pending with a progress bar
+- Overdue task indication (highlighted in red)
+- Tasks persist across page refreshes and browser restarts using localStorage
+- Corrupt or malformed stored data is validated and recovered safely
+- Open tabs stay in sync when tasks change
+- Dark / light mode toggle (persisted, follows system preference by default)
+- Toast notifications on add, update, toggle, and delete
+- Loading skeletons while tasks initialise
+- Responsive UI that works on desktop and mobile, with a collapsible mobile nav menu
+- Task detail page with edit, toggle, and delete actions, showing created and due dates
+- Dashboard with recent tasks overview
+- About page describing the app
+
+## Tech Stack
+- Next.js (App Router)
+- React
+- TypeScript
+- CSS-in-JS (inline styles)
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
+# Clone the repository
+git clone <your-repo-url>
+
+# Install dependencies
+npm install
+
+# Run the development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Project Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+app/
+├── components/
+│   ├── Navbar.tsx          # Sticky nav with theme toggle + mobile menu
+│   ├── ThemeToggle.tsx     # Dark / light mode toggle button
+│   ├── ToastProvider.tsx   # Toast notifications + useToast() hook
+│   ├── TaskStats.tsx       # Total / Completed / Pending stats + progress bar
+│   ├── FilterButtons.tsx   # All / Pending / Completed filters with counts
+│   ├── TaskCard.tsx        # Task card with status, badges, actions
+│   ├── TaskList.tsx        # Task list + empty state
+│   ├── TaskForm.tsx        # Add-task form
+│   ├── TaskEditForm.tsx    # Shared edit form (cards + detail page)
+│   ├── ConfirmDialog.tsx   # Reusable confirmation dialog
+│   ├── AuthLayout.tsx      # Split-panel layout for auth pages
+│   ├── PasswordField.tsx   # Password input with show/hide toggle
+│   ├── SocialAuth.tsx      # Google / GitHub social buttons
+│   ├── Logo.tsx            # Brand mark
+│   └── icons.tsx           # Shared SVG icon set
+├── lib/
+│   ├── taskStore.ts        # Task types + localStorage helpers
+│   ├── taskUtils.ts        # Shared domain helpers (overdue, sort, badge colors)
+│   └── styles.ts           # Shared UI style constants (inputs, labels)
+├── tasks/
+│   ├── page.tsx            # Main task list with filters, search, sort
+│   └── [taskId]/page.tsx   # Task detail page
+├── dashboard/page.tsx      # Dashboard with stats and recent tasks
+├── about/page.tsx          # About page
+├── profile/page.tsx        # Profile page
+├── sign-in/page.tsx        # Sign in page
+├── sign-up/page.tsx        # Sign up page
+├── layout.tsx              # Root layout (theme init script, Navbar, Toasts)
+└── page.tsx                # Home page
+```
 
-## Learn More
+## What I Learned
+- Breaking UI into reusable React components
+- Passing data between components using props
+- Managing state with `useState` and updating arrays immutably using the spread operator
+- Using `useEffect` to load data on mount
+- Persisting data with `localStorage`, `JSON.stringify()`, and `JSON.parse()`
+- Conditional rendering to visually differentiate completed and pending tasks
+- Using `map()` to dynamically render task lists and `filter()` for filtering
+- Next.js App Router, file-based routing, and client components (`"use client"`)
+- Handling forms and events in React
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Future Improvements
+- Authentication (sign in / sign up connected to a real backend)
+- Drag-and-drop task reordering
+- Categories and tags
