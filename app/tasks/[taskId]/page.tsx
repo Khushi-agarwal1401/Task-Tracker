@@ -5,8 +5,8 @@ import { useParams, useRouter } from "next/navigation"
 import { Task, loadTasks, saveTasks, subscribeToStorage } from "../../lib/taskStore"
 import { isOverdue, formatDate, priorityColors, statusColors, statusDot } from "../../lib/taskUtils"
 import { CheckIcon, ArrowUturnIcon, PencilIcon, TrashIcon, AlertIcon, CalendarIcon, ClockIcon, ArrowLeftIcon, CheckCircleIcon } from "../../components/icons"
-import ConfirmDialog from "../../components/ConfirmDialog"
-import TaskEditForm from "../../components/TaskEditForm"
+import ConfirmDialog from "@/app/components/ConfirmDialog"
+import TaskEditForm from "@/app/components/TaskEditForm"
 import { useToast } from "../../components/ToastProvider"
 
 export default function TaskDetailPage() {

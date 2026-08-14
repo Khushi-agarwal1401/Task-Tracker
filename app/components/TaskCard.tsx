@@ -5,8 +5,8 @@ import { useState } from "react"
 import { Task } from "../lib/taskStore"
 import { isOverdue, priorityColors, priorityBorder, statusDot } from "../lib/taskUtils"
 import { CheckIcon, ArrowUturnIcon, PencilIcon, TrashIcon, AlertIcon, CalendarIcon, CheckCircleIcon } from "./icons"
-import ConfirmDialog from "./ConfirmDialog"
-import TaskEditForm from "./TaskEditForm"
+import ConfirmDialog from "@/app/components/ConfirmDialog"
+import TaskEditForm from "@/app/components/TaskEditForm"
 
 export default function TaskCard({ task, onToggle, onDelete, onUpdate }: {
   task: Task
@@ -23,7 +23,8 @@ export default function TaskCard({ task, onToggle, onDelete, onUpdate }: {
       <div style={{ border: "2px solid var(--primary)", borderRadius: 12, padding: "1.25rem", background: "var(--surface)" }}>
         <TaskEditForm
           task={task}
-          onSave={(updated) => { onUpdate(updated); setEditing(false) }}
+          heading="Edit Task"
+          onSave={(updated: Task) => { onUpdate(updated); setEditing(false) }}
           onCancel={() => setEditing(false)}
         />
       </div>
