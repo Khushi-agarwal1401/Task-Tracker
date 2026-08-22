@@ -6,7 +6,7 @@ import { Task } from "../lib/taskStore"
 import { isOverdue, priorityColors, priorityBorder, statusDot } from "../lib/taskUtils"
 import { CheckIcon, ArrowUturnIcon, PencilIcon, TrashIcon, AlertIcon, CalendarIcon, CheckCircleIcon } from "./icons"
 import ConfirmDialog from "@/app/components/ConfirmDialog"
-import TaskEditForm from "@/app/components/TaskEditForm"
+import TaskEditForm from "./TaskEditForm"
 
 export default function TaskCard({ task, onToggle, onDelete, onUpdate }: {
   task: Task
@@ -32,8 +32,19 @@ export default function TaskCard({ task, onToggle, onDelete, onUpdate }: {
   }
 
   return (
-    <div
-      className="task-card"
+    <>
+      {confirmingDelete && (
+        <ConfirmDialog
+          message={`Are you sure you want to delete "${task.title}"?`}
+          onCancel={() => setConfirmingDelete(false)}
+          onConfirm={() => {
+            onDelete(task.id)
+            setConfirmingDelete(false)
+          }}
+        />
+      )}
+      <div
+        className="task-card"
       style={{
         border: `1px solid ${overdue ? "var(--destructive-border)" : "var(--border)"}`,
         borderLeft: `4px solid ${task.completed ? "var(--primary)" : overdue ? "var(--destructive)" : priorityBorder[task.priority]}`,
@@ -93,11 +104,13 @@ export default function TaskCard({ task, onToggle, onDelete, onUpdate }: {
         </div>
       </Link>
 
-      <div className="task-card-actions">
+      <div className="task-card-actions" style={{ display: "flex", gap: "0.5rem", marginTop: "0.75rem", paddingTop: "0.75rem", borderTop: "1px solid var(--border)", justifyContent: "flex-end" }}>
         <button
           onClick={() => onToggle(task.id)}
           className="press"
-          style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", gap: "0.3rem", padding: "0.3rem 0.7rem", borderRadius: 6, border: "none", cursor: "pointer", background: task.completed ? "var(--surface-muted)" : "var(--primary)", color: task.completed ? "var(--text)" : "var(--text-on-primary)", fontSize: "0.75rem", fontWeight: 600, whiteSpace: "nowrap", transition: "background 0.15s, transform 0.1s ease" }}
+          style={{
+            display: "inline-flex", alignItems: "center", justifyContent: "center", gap: "0.3rem", padding: "0.3rem 0.7rem", borderRadius: 6, border: "none", cursor: "pointer", background: task.completed ? "var(--surface-muted)" : "var(--primary)", color: task.completed ? "var(--text)" : "var(--text-on-primary)", fontSize: "0.75rem", fontWeight: 600, whiteSpace: "nowrap", transition: "background 0.15s, transform 0.1s ease",
+          }}
           onMouseEnter={(e) => { if (!task.completed) e.currentTarget.style.background = "var(--primary-hover)" }}
           onMouseLeave={(e) => { e.currentTarget.style.background = task.completed ? "var(--surface-muted)" : "var(--primary)" }}
         >
@@ -106,9 +119,11 @@ export default function TaskCard({ task, onToggle, onDelete, onUpdate }: {
         {!task.completed && (
           <button
             onClick={() => setEditing(true)}
-            style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", gap: "0.3rem", padding: "0.3rem 0.7rem", borderRadius: 6, border: "1px solid var(--border)", cursor: "pointer", background: "var(--surface)", color: "var(--text)", fontSize: "0.75rem", transition: "background 0.15s" }}
-            onMouseEnter={(e) => (e.currentTarget.style.background = "var(--surface-hover)")}
-            onMouseLeave={(e) => (e.currentTarget.style.background = "var(--surface)")}
+            style={{
+              display: "inline-flex", alignItems: "center", justifyContent: "center", gap: "0.3rem", padding: "0.3rem 0.7rem", borderRadius: 6, border: "1px solid var(--border)", cursor: "pointer", background: "var(--surface)", color: "var(--text)", fontSize: "0.75rem", transition: "background 0.15s",
+            }}
+            onMouseEnter={(e) => { e.currentTarget.style.background = "var(--surface-hover)" }}
+            onMouseLeave={(e) => { e.currentTarget.style.background = "var(--surface)" }}
           >
             <PencilIcon size={12} />
             Edit
@@ -116,22 +131,17 @@ export default function TaskCard({ task, onToggle, onDelete, onUpdate }: {
         )}
         <button
           onClick={() => setConfirmingDelete(true)}
-          style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", gap: "0.3rem", padding: "0.3rem 0.7rem", borderRadius: 6, border: "1px solid var(--destructive-border)", cursor: "pointer", background: "var(--surface)", color: "var(--destructive)", fontSize: "0.75rem", transition: "background 0.15s" }}
-          onMouseEnter={(e) => (e.currentTarget.style.background = "var(--destructive-soft)")}
-          onMouseLeave={(e) => (e.currentTarget.style.background = "var(--surface)")}
+          style={{
+            display: "inline-flex", alignItems: "center", justifyContent: "center", gap: "0.3rem", padding: "0.3rem 0.7rem", borderRadius: 6, border: "1px solid var(--destructive-border)", cursor: "pointer", background: "var(--surface)", color: "var(--destructive)", fontSize: "0.75rem", transition: "background 0.15s",
+          }}
+          onMouseEnter={(e) => { e.currentTarget.style.background = "var(--destructive-soft)" }}
+          onMouseLeave={(e) => { e.currentTarget.style.background = "var(--surface)" }}
         >
           <TrashIcon size={12} />
           Delete
         </button>
       </div>
-
-      {confirmingDelete && (
-        <ConfirmDialog
-          message="Are you sure you want to delete this task?"
-          onConfirm={() => { onDelete(task.id); setConfirmingDelete(false) }}
-          onCancel={() => setConfirmingDelete(false)}
-        />
-      )}
     </div>
+    </>
   )
 }

@@ -57,7 +57,7 @@ export default function TaskDetailPage() {
         <p style={{ color: "var(--text-muted)", margin: "0 0 1.25rem" }}>Task not found.</p>
         <button
           onClick={() => router.push("/tasks")}
-          style={{ padding: "0.5rem 1.25rem", borderRadius: 6, background: "var(--primary)", color: "var(--text-on-primary)", border: "none", cursor: "pointer", fontWeight: 600 }}
+          style={{ padding: "0.5rem 1.25br", borderRadius: 6, background: "var(--primary)", color: "var(--text-on-primary)", border: "none", cursor: "pointer", fontWeight: 600 }}
         >
           Back to Tasks
         </button>

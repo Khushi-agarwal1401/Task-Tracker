@@ -106,17 +106,17 @@ export default function TaskForm({ onAdd }: Props) {
           <div style={{ display: "flex", flexDirection: "column", gap: "0.3rem", flex: 1, minWidth: 120 }}>
             <label style={labelStyle}>Priority</label>
             <select value={priority} onChange={(e) => setPriority(e.target.value as Priority)} style={inputStyle}>
-              <option>Low</option>
-              <option>Medium</option>
-              <option>High</option>
+              <option value="Low">Low</option>
+              <option value="Medium">Medium</option>
+              <option value="High">High</option>
             </select>
           </div>
           <div style={{ display: "flex", flexDirection: "column", gap: "0.3rem", flex: 1, minWidth: 120 }}>
             <label style={labelStyle}>Status</label>
             <select value={status} onChange={(e) => setStatus(e.target.value as Status)} style={inputStyle}>
-              <option>Todo</option>
-              <option>In Progress</option>
-              <option>Done</option>
+              <option value="Todo">Todo</option>
+              <option value="In Progress">In Progress</option>
+              <option value="Done">Done</option>
             </select>
           </div>
           <div style={{ display: "flex", flexDirection: "column", gap: "0.3rem", flex: 1, minWidth: 120 }}>
@@ -128,9 +128,9 @@ export default function TaskForm({ onAdd }: Props) {
           <button
             type="submit"
             className="press"
-            style={{ flex: 1, padding: "0.55rem", borderRadius: 6, background: "var(--accent)", color: "var(--text-on-accent)", border: "none", cursor: "pointer", fontWeight: 600, transition: "background 0.15s, transform 0.1s ease" }}
-            onMouseEnter={(e) => (e.currentTarget.style.background = "var(--accent-hover)")}
-            onMouseLeave={(e) => (e.currentTarget.style.background = "var(--accent)")}
+            style={{ flex: 1, padding: "0.55rem", borderRadius: 6, background: "var(--primary)", color: "var(--text-on-primary)", border: "none", cursor: "pointer", fontWeight: 600, transition: "background 0.15s, transform 0.1s ease" }}
+            onMouseEnter={(e) => (e.currentTarget.style.background = "var(--primary-hover)")}
+            onMouseLeave={(e) => (e.currentTarget.style.background = "var(--primary)")}
           >
             Add Task
           </button>

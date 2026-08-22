@@ -26,13 +26,14 @@ export default function TaskList({ tasks, onToggle, onDelete, onUpdate, emptyMes
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem", marginBottom: "1rem" }}>
-      {tasks.map((task, i) => (
-        <div
+      {tasks.map((task) => (
+        <TaskCard
           key={task.id}
-          style={{ animation: "fadeUp 0.35s ease both", animationDelay: `${Math.min(i * 45, 300)}ms` }}
-        >
-          <TaskCard task={task} onToggle={onToggle} onDelete={onDelete} onUpdate={onUpdate} />
-        </div>
+          task={task}
+          onToggle={onToggle}
+          onDelete={onDelete}
+          onUpdate={onUpdate}
+        />
       ))}
     </div>
   )

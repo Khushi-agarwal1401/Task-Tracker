@@ -5,8 +5,8 @@ import { Task, loadTasks, saveTasks, subscribeToStorage } from "../lib/taskStore
 import { sortTasks, SortKey } from "../lib/taskUtils"
 import FilterButtons, { Filter } from "../components/FilterButtons"
 import TaskList from "../components/TaskList"
-import TaskForm from "../components/TaskForm"
 import TaskStats from "../components/TaskStats"
+import TaskForm from "../components/TaskForm"
 import { SearchIcon } from "../components/icons"
 import { useToast } from "../components/ToastProvider"
 
@@ -71,34 +71,36 @@ export default function TasksPage() {
 
       {mounted ? <TaskStats tasks={tasks} /> : <StatsSkeleton />}
 
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1rem", gap: "0.75rem", flexWrap: "wrap" }}>
-        <FilterButtons filter={filter} onChange={setFilter} counts={counts} />
-        <div style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
-          <div style={{ position: "relative", display: "flex", alignItems: "center" }}>
-            <span style={{ position: "absolute", left: "0.65rem", color: "var(--text-faint)", display: "flex", pointerEvents: "none" }}>
-              <SearchIcon size={15} />
-            </span>
-            <input
-              type="text"
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              placeholder="Search tasks..."
-              style={{ padding: "0.4rem 0.9rem 0.4rem 2rem", borderRadius: 8, border: "1px solid var(--border-strong)", fontSize: "0.875rem", minWidth: 180, background: "var(--surface)", color: "var(--text)" }}
-            />
+      <section style={{ marginBottom: "1.5rem" }}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1rem", gap: "0.75rem", flexWrap: "wrap" }}>
+          <FilterButtons filter={filter} onChange={setFilter} counts={counts} />
+          <div style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
+            <div style={{ position: "relative", display: "flex", alignItems: "center" }}>
+              <span style={{ position: "absolute", left: "0.65rem", color: "var(--text-faint)", display: "flex", pointerEvents: "none" }}>
+                <SearchIcon size={15} />
+              </span>
+              <input
+                type="text"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                placeholder="Search tasks..."
+                style={{ padding: "0.4rem 0.9rem 0.4rem 2rem", borderRadius: 8, border: "1px solid var(--border-strong)", fontSize: "0.875rem", minWidth: 180, background: "var(--surface)", color: "var(--text)" }}
+              />
+            </div>
+            <select
+              value={sort}
+              onChange={(e) => setSort(e.target.value as SortKey)}
+              aria-label="Sort tasks"
+              style={{ padding: "0.4rem 0.7rem", borderRadius: 8, border: "1px solid var(--border-strong)", fontSize: "0.875rem", background: "var(--surface)", color: "var(--text)", cursor: "pointer" }}
+            >
+              <option value="newest">Newest first</option>
+              <option value="oldest">Oldest first</option>
+              <option value="due">Due date</option>
+              <option value="priority">Priority</option>
+            </select>
           </div>
-          <select
-            value={sort}
-            onChange={(e) => setSort(e.target.value as SortKey)}
-            aria-label="Sort tasks"
-            style={{ padding: "0.4rem 0.7rem", borderRadius: 8, border: "1px solid var(--border-strong)", fontSize: "0.875rem", background: "var(--surface)", color: "var(--text)", cursor: "pointer" }}
-          >
-            <option value="newest">Newest first</option>
-            <option value="oldest">Oldest first</option>
-            <option value="due">Due date</option>
-            <option value="priority">Priority</option>
-          </select>
         </div>
-      </div>
+      </section>
 
       {mounted ? (
         <TaskList
